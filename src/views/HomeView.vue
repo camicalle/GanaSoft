@@ -1,9 +1,15 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import CarouselComponent from '../components/home/CarouselComponent.vue'
+import HeaderComponent from '../components/global/HeaderComponent.vue';
+import FooterComponent from '../components/global/FooterComponent.vue';
+import CardComponent from '../components/home/CardComponent.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <HeaderComponent />
+    <CarouselComponent />
+    <CardComponent />
+    <FooterComponent />
   </main>
 </template>
