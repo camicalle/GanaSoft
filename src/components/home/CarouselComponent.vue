@@ -13,30 +13,9 @@ onMounted(() => {
             <div id="default-carousel" class="relative w-full" data-carousel="slide">
                 <!-- Carousel wrapper -->
                 <div class="relative h-56 overflow-hidden md:h-96">
-                    <!-- Item 1 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://images.pexels.com/photos/162240/bull-calf-heifer-ko-162240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <!-- Item 2 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <!-- Item 3 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://images.pexels.com/photos/735968/pexels-photo-735968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <!-- Item 4 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://images.pexels.com/photos/787647/pexels-photo-787647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <!-- Item 5 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://images.pexels.com/photos/1297307/pexels-photo-1297307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item v-for="image in images" :key="image.id">
+                        <img :src="image.url"
+                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" :alt="image.alt">
                     </div>
                 </div>
                 <!-- Slider indicators -->
@@ -82,3 +61,39 @@ onMounted(() => {
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            images: [
+                {
+                    id: 1,
+                    url: 'https://images.pexels.com/photos/162240/bull-calf-heifer-ko-162240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                    alt: 'Banner1'
+                },
+                {
+                    id: 2,                    
+                    url: 'https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                    alt: 'Banner2'
+                },
+                {
+                    id: 3,
+                    url: 'https://images.pexels.com/photos/735968/pexels-photo-735968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                    alt: 'Banner3'
+                },
+                {
+                    id: 4,
+                    url: 'https://images.pexels.com/photos/787647/pexels-photo-787647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                    alt: 'Banner4'
+                },
+                {
+                    id: 5,
+                    url: 'https://images.pexels.com/photos/1297307/pexels-photo-1297307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                    alt: 'Banner5'
+                },
+            ]
+        }
+    }
+}
+</script>

@@ -1,9 +1,24 @@
 <script setup>
 import { RouterView } from 'vue-router'
+import HeaderComponent from './components/global/HeaderComponent.vue';
+import FooterComponent from './components/global/FooterComponent.vue';
+
+import HeaderAdminComponent from './components/admin/HeaderComponent.vue';
 </script>
 
 <template>
-  <RouterView />  
+  <template v-if="$route.path == '/' || $route.path == '/about' || $route.path == '/questions'">
+    <HeaderComponent />
+  </template>
+  <template v-else-if="$route.path == '/login' || $route.path == '/register'">
+  </template>
+  <template v-else>
+    <HeaderAdminComponent />
+  </template>
+  <RouterView />
+  <template v-if="$route.path == '/' || $route.path == '/about' || $route.path == '/questions'">
+    <FooterComponent />
+  </template>
 </template>
 
 <style scoped>

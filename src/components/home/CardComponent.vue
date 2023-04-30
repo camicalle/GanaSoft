@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div class="pb-12 pt-16">
+            <p class="text-center text-gray-500 dark:text-gray-400 text-2xl uppercase font-bold">
+                Lo que brindamos a nuestros usuarios
+            </p>
+        </div>
         <div class="flex justify-center">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
                 <div>
@@ -12,7 +17,8 @@
                         </a>
                         <div class="p-5">
                             <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Inventario
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    Inventario
                                 </h5>
                             </a>
                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
@@ -83,10 +89,11 @@
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div></template>
+</template>
