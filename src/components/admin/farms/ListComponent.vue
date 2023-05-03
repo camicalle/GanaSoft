@@ -7,37 +7,49 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
-                                    Product name
+                                    ID
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Color
+                                    Nombre
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Category
+                                    Ubicación
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Price
+                                    Hectareas
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Action
+                                    Dimensiones
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Dueño
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Acciones
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
+                            <tr v-for="farm in farms" :key="farm.id"
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Apple MacBook Pro 17"
+                                    {{ farm.id }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    Silver
+                                    {{ farm.nombre }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    Laptop
+                                    {{ farm.ubicacion }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    $2999
+                                    {{ farm.hectareas }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ farm.dimensiones }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ farm.id_persona }}
                                 </td>
                                 <td class="px-6 py-4 flex gap-2">
                                     <button type="button"
@@ -50,7 +62,7 @@
                                                 d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
                                         </svg>
                                     </button>
-                                    <button type="button"
+                                    <button @click="deleteFarm(farm.id)" type="button"
                                         class="px-2 py-2 text-xs font-medium text-center text-white bg-red-700 rounded-md hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             class="w-5 h-5">
@@ -63,10 +75,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
-                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-                                class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span
-                                class="font-semibold text-gray-900 dark:text-white">1000</span></span>
+                    <nav class="flex items-center justify-end pt-4" aria-label="Table navigation">
                         <ul class="inline-flex items-center -space-x-px">
                             <li>
                                 <a href="#"
@@ -119,3 +128,64 @@
         </div>
     </div>
 </template>
+
+<script>
+import axios from 'axios'
+import swal from 'sweetalert'
+
+export default {
+    data() {
+        return {
+            farms: []
+        }
+    },
+    mounted() {
+        const url = import.meta.env.VITE_BASE_URL;
+        const urlFarms = url + 'ryDMil1F/farms'
+
+        axios.get(urlFarms)
+            .then(response => {
+                this.farms = response.data;
+            });
+    },
+    methods: {
+        deleteFarm(id) {
+            const url = import.meta.env.VITE_BASE_URL;
+            const urlFarms = url + 'ryDMil1F/farms/' + id
+
+            axios.delete(urlFarms, {
+            })
+                .then((response) => {
+                    if (response.status == 200) {
+                        swal({
+                            title: "Esta seguro?",
+                            text: "Esta seguro que desea elimiar esta finca?",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    swal("Enhorabuena!", "Finca creada con exito!", "success")
+                                        .then(() => {
+                                            location.reload()
+                                        });
+                                } else {
+                                    swal("Finca no eliminada")
+                                        .then(() => {
+                                            location.reload()
+                                        });
+                                }
+                            });
+                    } else {
+                        swal("Error!", "Algo salio mal!", "error")
+                            .then(() => {
+                                location.reload()
+                            });
+                    }
+                });
+        }
+    }
+}
+
+</script>
