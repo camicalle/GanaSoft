@@ -121,10 +121,7 @@ export default {
         const url = import.meta.env.VITE_BASE_URL;
         const urlPersons = url + 'jMpHsrSf/persons'
 
-        axios({
-            method: 'get',
-            url: urlPersons,
-        })
+        axios.get(urlPersons)
             .then(response => {
                 this.persons = response.data;
             });
