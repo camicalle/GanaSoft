@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="farm in farms" :key="farm.id"
+                            <tr v-for="farm in paginatedFarms" :key="farm.id"
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -75,11 +75,11 @@
                             </tr>
                         </tbody>
                     </table>
-                    <nav class="flex items-center justify-end pt-4" aria-label="Table navigation">
+                    <nav class="flex items-center justify-end pt-4" aria-label="Table navigation" v-show="farms != ''">
                         <ul class="inline-flex items-center -space-x-px">
-                            <li>
-                                <a href="#"
-                                    class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <li :class="{ disabled: currentPage === 1 }">
+                                <a @click.prevent="prevPage"
+                                    class="block px-3 cursor-pointer py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                     <span class="sr-only">Previous</span>
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -89,29 +89,15 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#"
-                                    class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                            <li :class="{ active: page === currentPage }" v-for="page in pages" :key="page">
+                                <a @click.prevent="goToPage(page)" :class="isActive(page)"
+                                    class="px-3 cursor-pointer py-2 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    {{ page }}
+                                </a>
                             </li>
-                            <li>
-                                <a href="#"
-                                    class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                            </li>
-                            <li>
-                                <a href="#" aria-current="page"
-                                    class="z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <li :class="{ disabled: currentPage === pageCount }">
+                                <a @click.prevent="nextPage"
+                                    class="block cursor-pointer px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                     <span class="sr-only">Next</span>
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -136,7 +122,9 @@ import swal from 'sweetalert'
 export default {
     data() {
         return {
-            farms: []
+            farms: [],
+            perPage: 5,
+            currentPage: 1,
         }
     },
     mounted() {
@@ -147,6 +135,23 @@ export default {
             .then(response => {
                 this.farms = response.data;
             });
+    },
+    computed: {
+        pageCount() {
+            return Math.ceil(this.farms.length / this.perPage);
+        },
+        paginatedFarms() {
+            const startIndex = (this.currentPage - 1) * this.perPage;
+            const endIndex = startIndex + this.perPage;
+            return this.farms.slice(startIndex, endIndex);
+        },
+        pages() {
+            const pages = [];
+            for (let i = 1; i <= this.pageCount; i++) {
+                pages.push(i);
+            }
+            return pages;
+        },
     },
     methods: {
         deleteFarm(id) {
@@ -184,6 +189,24 @@ export default {
                             });
                     }
                 });
+        },
+
+        //Paginated
+        goToPage(page) {
+            this.currentPage = page;
+        },
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.pageCount) {
+                this.currentPage++;
+            }
+        },
+        isActive(page) {
+            return page == this.currentPage ? 'bg-blue-50' : ''
         }
     }
 }

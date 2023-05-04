@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "b0c1e52a-ebb3-413d-beb2-4b7c48d1964a",
+		"name": "ganasoft",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17131308"
+	},
+	"item": [
+		{
+			"name": "persons",
+			"item": [
+				{
+					"name": "https://apigenerator.dronahq.com/api/jMpHsrSf/persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://apigenerator.dronahq.com/api/jMpHsrSf/persons",
+							"protocol": "https",
+							"host": [
+								"apigenerator",
+								"dronahq",
+								"com"
+							],
+							"path": [
+								"api",
+								"jMpHsrSf",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://apigenerator.dronahq.com/api/jMpHsrSf/persons/12",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://apigenerator.dronahq.com/api/jMpHsrSf/persons/12",
+							"protocol": "https",
+							"host": [
+								"apigenerator",
+								"dronahq",
+								"com"
+							],
+							"path": [
+								"api",
+								"jMpHsrSf",
+								"persons",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "farms",
+			"item": [
+				{
+					"name": "https://apigenerator.dronahq.com/api/ryDMil1F/farms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://apigenerator.dronahq.com/api/ryDMil1F/farms",
+							"protocol": "https",
+							"host": [
+								"apigenerator",
+								"dronahq",
+								"com"
+							],
+							"path": [
+								"api",
+								"ryDMil1F",
+								"farms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://apigenerator.dronahq.com/api/ryDMil1F/farms/29",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://apigenerator.dronahq.com/api/ryDMil1F/farms/24",
+							"protocol": "https",
+							"host": [
+								"apigenerator",
+								"dronahq",
+								"com"
+							],
+							"path": [
+								"api",
+								"ryDMil1F",
+								"farms",
+								"24"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "animals",
+			"item": [
+				{
+					"name": "https://apigenerator.dronahq.com/api/wAG4EG_q/animals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://apigenerator.dronahq.com/api/wAG4EG_q/animals",
+							"protocol": "https",
+							"host": [
+								"apigenerator",
+								"dronahq",
+								"com"
+							],
+							"path": [
+								"api",
+								"wAG4EG_q",
+								"animals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://apigenerator.dronahq.com/api/wAG4EG_q/animals/20",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://apigenerator.dronahq.com/api/wAG4EG_q/animals/20",
+							"protocol": "https",
+							"host": [
+								"apigenerator",
+								"dronahq",
+								"com"
+							],
+							"path": [
+								"api",
+								"wAG4EG_q",
+								"animals",
+								"20"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

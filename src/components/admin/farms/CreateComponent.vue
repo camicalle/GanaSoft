@@ -26,12 +26,13 @@ onMounted(() => {
                         <!-- Modal content -->
                         <form @submit.prevent="insertFarm" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                             <!-- Modal header -->
-                            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            <div
+                                class="flex items-start bg-blue-700 justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                <h3 class="text-xl font-semibold text-white dark:text-white">
                                     Agregar Finca
                                 </h3>
                                 <button @click.prevent="close" type="button"
-                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    class="text-white bg-transparent hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                     data-modal-hide="farmsCreateModal">
                                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -44,6 +45,19 @@ onMounted(() => {
                             <!-- Modal body -->
                             <div class="p-6 space-y-6">
                                 <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-6 sm:col-span-6">
+                                        <label for="dueño"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione
+                                            el Dueño</label>
+                                        <select v-model="farm.person" id="dueño" required
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="" disabled selected>Seleccione el Dueño</option>
+                                            <template v-for="person in persons" :key="person.id">
+                                                <option :value="person.id">{{ person.id }} - {{ person.primer_nombre }} {{
+                                                    person.primer_apellido }} </option>
+                                            </template>
+                                        </select>
+                                    </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="name"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
@@ -68,19 +82,6 @@ onMounted(() => {
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dimensiones</label>
                                         <input v-model="farm.dimensiones" type="text" name="dimensiones" id="dimensiones"
                                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-6">
-                                        <label for="dueño"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione
-                                            el Dueño</label>
-                                        <select v-model="farm.person" id="dueño" required
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option value="" disabled selected>Seleccione el Dueño</option>
-                                            <template v-for="person in persons" :key="person.id">
-                                                <option :value="person.id">{{ person.id }} - {{ person.primer_nombre }} {{
-                                                    person.primer_apellido }} </option>
-                                            </template>
-                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -154,10 +155,10 @@ export default {
         },
         close() {
             this.farm.nombre = '',
-            this.farm.ubicacion = '',
-            this.farm.hectares= '',
-            this.farm.dimensiones = '',
-            this.farm.person = null
+                this.farm.ubicacion = '',
+                this.farm.hectares = '',
+                this.farm.dimensiones = '',
+                this.farm.person = null
         }
     },
 }
