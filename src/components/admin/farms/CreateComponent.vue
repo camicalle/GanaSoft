@@ -14,7 +14,7 @@ onMounted(() => {
             <div class="container p-2">
                 <!-- Modal toggle -->
                 <button data-modal-target="farmsCreateModal" data-modal-toggle="farmsCreateModal"
-                    class="block font-bold text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    class="block font-bold text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                     type="button">
                     Agregar Finca
                 </button>
@@ -27,7 +27,7 @@ onMounted(() => {
                         <form @submit.prevent="insertFarm" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                             <!-- Modal header -->
                             <div
-                                class="flex items-start bg-blue-700 justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                class="flex items-start bg-green-700 justify-between p-4 border-b rounded-t dark:border-gray-600">
                                 <h3 class="text-xl font-semibold text-white dark:text-white">
                                     Agregar Finca
                                 </h3>
@@ -74,7 +74,7 @@ onMounted(() => {
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="hectareas"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hectareas</label>
-                                        <input v-model="farm.hectares" type="number" name="hectareas" id="hectareas"
+                                        <input v-model="farm.hectareas" type="number" name="hectareas" id="hectareas"
                                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
@@ -89,7 +89,7 @@ onMounted(() => {
                             <div
                                 class="flex justify-end items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button type="submit"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
+                                    class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Guardar</button>
                                 <button @click="close" type="button" data-modal-hide="farmsCreateModal"
                                     class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Cancelar</button>
                             </div>
@@ -111,7 +111,7 @@ export default {
             farm: {
                 nombre: '',
                 ubicacion: '',
-                hectares: '',
+                hectareas: '',
                 dimensiones: '',
                 person: null
             },
@@ -135,7 +135,7 @@ export default {
             axios.post(urlFarms, {
                 nombre: this.farm.nombre,
                 ubicacion: this.farm.ubicacion,
-                hectareas: this.farm.hectares,
+                hectareas: this.farm.hectareas,
                 dimensiones: this.farm.dimensiones,
                 id_persona: this.farm.person
             })
@@ -156,7 +156,7 @@ export default {
         close() {
             this.farm.nombre = '',
                 this.farm.ubicacion = '',
-                this.farm.hectares = '',
+                this.farm.hectareas = '',
                 this.farm.dimensiones = '',
                 this.farm.person = null
         }
