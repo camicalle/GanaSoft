@@ -314,7 +314,7 @@ export default {
                         })
                             .then((response) => {
                                 if (response.status == 200) {
-                                    swal("Enhorabuena!", "Finca creada con exito!", "success")
+                                    swal("Enhorabuena!", "Finca eliminada con exito!", "success")
                                         .then(() => {
                                             location.reload()
                                         });
