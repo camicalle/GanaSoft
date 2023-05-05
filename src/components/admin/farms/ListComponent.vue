@@ -144,7 +144,6 @@
                                                 <option :value="farm.id_persona">{{ person.id }} - {{ person.primer_nombre
                                                 }}
                                                     {{ person.primer_apellido }}</option>
-                                                <!-- <option value="" disabled selected>Seleccione el Dueño</option> -->
 
                                                 <template v-for="person in persons" :key="person.id">
                                                     <option :value="person.id">{{ person.id }} - {{ person.primer_nombre }}
@@ -207,9 +206,9 @@ export default {
             farms: [],
             perPage: 5,
             currentPage: 1,
+
             showEditModal: false,
 
-            id_farm: 0,
             farm: {
                 id_persona: null,
                 id: 0,
@@ -250,7 +249,6 @@ export default {
     },
     methods: {
         getId(id) {
-            this.id_farm = id
             const url = import.meta.env.VITE_BASE_URL;
             const urlFarms = url + 'ryDMil1F/farms/' + id
 
@@ -301,32 +299,32 @@ export default {
             const url = import.meta.env.VITE_BASE_URL;
             const urlFarms = url + 'ryDMil1F/farms/' + id
 
-            axios.delete(urlFarms, {
+            swal({
+                title: "Esta seguro?",
+                text: "Esta seguro que desea elimiar esta finca?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             })
-                .then((response) => {
-                    if (response.status == 200) {
-                        swal({
-                            title: "Esta seguro?",
-                            text: "Esta seguro que desea elimiar esta finca?",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: true,
+                .then((willDelete) => {
+                    if (willDelete) {
+                        axios.delete(urlFarms, {
                         })
-                            .then((willDelete) => {
-                                if (willDelete) {
+                            .then((response) => {
+                                if (response.status == 200) {
                                     swal("Enhorabuena!", "Finca creada con exito!", "success")
                                         .then(() => {
                                             location.reload()
                                         });
                                 } else {
-                                    swal("Finca no eliminada")
+                                    swal("Error!", "Algo salio mal!", "error")
                                         .then(() => {
                                             location.reload()
                                         });
                                 }
                             });
                     } else {
-                        swal("Error!", "Algo salio mal!", "error")
+                        swal("Finca no eliminada")
                             .then(() => {
                                 location.reload()
                             });
