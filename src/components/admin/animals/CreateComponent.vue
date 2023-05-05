@@ -134,11 +134,11 @@ onMounted(() => {
                     <label
                       for="dimensiones"
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >Fecha Naci.</label
+                      >Fecha Nacimiento</label
                     >
                     <input
                       v-model="animal.fecha_nacimiento"
-                      type="text"
+                      type="date"
                       name="dimensiones"
                       id="dimensiones"
                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -161,7 +161,11 @@ onMounted(() => {
                   </div>
 
                   <div class="col-span-6 sm:col-span-3">
-                    
+                    <label
+                      for="dueño"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >Sexo</label
+                    >
                     <select
                     v-model="animal.sexo"
                     id="dueño"
@@ -169,8 +173,8 @@ onMounted(() => {
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <option value="" disabled selected>Seleccione el sexo</option>
-                    <option value="M">M</option>
-                    <option value="F">F</option>
+                    <option value="M">Macho</option>
+                    <option value="F">Hembra</option>
                   </select>
                   </div>
 
@@ -178,20 +182,25 @@ onMounted(() => {
                     <label
                       for="dimensiones"
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >Fecha Ingr.</label
+                      >Fecha Ingreso</label
                     >
                     <input
                       v-model="animal.fecha_ingreso"
-                      type="text"
+                      type="date"
                       name="dimensiones"
                       id="dimensiones"
                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                   </div>
                   <div class="col-span-6 sm:col-span-3">
+                    <label
+                      for="dueño"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >Estado</label
+                    >
                   <select
                     v-model="animal.estado"
-                    id=""
+                    id="dueño"
                     required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
@@ -277,7 +286,7 @@ export default {
         })
         .then((response) => {
           if (response.status == 201) {
-            swal('En hora buena!', 'Animal registrado con exito!', 'success').then(() => {
+            swal('Enhorabuena!', 'Animal registrado con exito!', 'success').then(() => {
               location.reload()
             })
           } else {
