@@ -207,8 +207,10 @@ export default {
             perPage: 5,
             currentPage: 1,
 
+            //Modal
             showEditModal: false,
 
+            //Farm
             farm: {
                 id_persona: null,
                 id: 0,
