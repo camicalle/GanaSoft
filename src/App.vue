@@ -8,17 +8,24 @@ import HeaderAdminComponent from './components/admin/HeaderComponent.vue';
 
 <template>
   <template v-if="$route.params.pathMatch !== undefined">
+    <RouterView />
   </template>
   <template v-else-if="$route.path == '/' || $route.path == '/about' || $route.path == '/questions'">
     <HeaderComponent />
+    <RouterView />
   </template>
   <template v-else-if="$route.path == '/login' || $route.path == '/register'">
+    <RouterView />
   </template>
   <template v-else>
     <HeaderAdminComponent />
+    <div class=" sm:ml-64">
+      <RouterView />
+
+    </div>
   </template>
 
-  <RouterView />
+
 
   <template v-if="$route.path == '/' || $route.path == '/about' || $route.path == '/questions'">
     <FooterComponent />
