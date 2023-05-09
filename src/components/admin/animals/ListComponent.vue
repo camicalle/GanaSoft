@@ -42,6 +42,14 @@
                   {{ animal.id_finca }}
                 </td>
                 <td class="px-6 py-4 flex gap-2">
+                  <button v-on:click="pesoAnimal(animal.id)" @click="showPesoModal = true" type="button"
+                    class="px-2 py-2 text-xs font-medium text-center text-white bg-gray-500 rounded-md hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                      <path fill-rule="evenodd"
+                        d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </button>
                   <button v-on:click="viewId(animal.id)" @click="showViewModal = true" type="button"
                     class="px-2 py-2 text-xs font-medium text-center text-white bg-yellow-300 rounded-md hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
@@ -350,6 +358,64 @@
             </div>
           </div>
         </div>
+        <!-- Peso modal -->
+        <div v-show="showPesoModal">
+          <div
+            class="modal fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative w-full max-w-2xl max-h-full">
+              <!-- Modal content -->
+              <form @submit.prevent="pesoInsert()" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Agregar Peso</h3>
+                  <button @click="showPesoModal = false" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="animalsCreateModal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                  <div class="grid grid-cols-6 gap-6">
+
+                    <div class="col-span-6 sm:col-span-3">
+                      <label
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de Kg</label>
+                      <input v-model="peso.numero_kg" type="number"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        required="" />
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                      <label
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                      <input v-model="peso.fecha" type="date"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required="" />
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal footer -->
+                <div
+                  class="flex justify-end items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                  <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Guardar
+                  </button>
+                  <button @click="showPesoModal = false" type="button"
+                    class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -370,6 +436,7 @@ export default {
 
       showEditModal: false,
       showViewModal: false,
+      showPesoModal: false,
 
       animal: {
         id_finca: null,
@@ -383,6 +450,11 @@ export default {
         fecha_ingreso: '',
         estado: null,
 
+      },
+      peso: {
+        id_animal: 0,
+        numero_kg: null,
+        fecha: ''
       },
       farm: {},
       farms: []
@@ -414,6 +486,30 @@ export default {
     }
   },
   methods: {
+    pesoAnimal(id) {
+      this.peso.id_animal = id
+    },
+    pesoInsert() {
+      const api = import.meta.env.VITE_BASE_URL
+      const url = api + 'ETDHlCKb/pesos'
+
+      axios.post(url, {
+        numero_kg: this.peso.numero_kg,
+        fecha: this.peso.fecha,
+        id_animal: this.peso.id_animal
+      })
+        .then((response) => {
+          if (response.status == 201) {
+            swal('Enhorabuena!', 'Peso registrado con exito!', 'success').then(() => {
+              location.reload()
+            })
+          } else {
+            swal('Error!', 'Algo salio mal!', 'error').then(() => {
+              location.reload()
+            })
+          }
+        })
+    },
     viewId(id) {
       const url = import.meta.env.VITE_BASE_URL;
       const urlAnimals = url + 'wAG4EG_q/animals/' + id

@@ -83,18 +83,18 @@ export default {
     },
     methods: {
         login() {
-            const usernameIndex = this.users.findIndex((e) => e.usuario === this.username);
-            const passwordIndex = this.users.findIndex((e) => e.contrasena === this.password);
+            const username = this.users.findIndex((e) => e.usuario === this.username);
+            const password = this.users.findIndex((e) => e.contrasena === this.password);
 
-            if (usernameIndex !== -1 && passwordIndex !== -1) {
-                const user = {
+            if (username !== -1 && password !== -1) {
+
+
+                localStorage.setItem('user', JSON.stringify({
                     username: this.username,
                     password: this.password,
-                    rol: this.users[usernameIndex].id_rol,
-                    person: this.users[usernameIndex].id
-                };
-
-                localStorage.setItem('user', JSON.stringify(user));
+                    rol: this.users[username].id_rol,
+                    person: this.users[username].id,
+                }));
 
                 swal("¡Enhorabuena!", "Inicio de sesión exitoso", "success")
                     .then(() => {

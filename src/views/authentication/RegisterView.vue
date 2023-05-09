@@ -28,7 +28,7 @@
                                     </label>
                                     <input v-model="person.segundo_nombre"
                                         class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                        type="text" placeholder="--" required />
+                                        type="text" placeholder="--" />
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

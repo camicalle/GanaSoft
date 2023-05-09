@@ -45,7 +45,7 @@ const router = createRouter({
       name: 'dashboard',
       component: () => import('../views/admin/DashboardView.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
       }
     },
     {
@@ -54,7 +54,6 @@ const router = createRouter({
       component: () => import('../views/admin/animals/AnimalsView.vue'),
       meta: {
         requiresAuth: true,
-        requiresRole: [1]
       }
     },
     {
@@ -62,7 +61,7 @@ const router = createRouter({
       name: 'farms',
       component: () => import('../views/admin/farms/FarmsView.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
       }
     }
   ]
@@ -78,7 +77,7 @@ router.beforeEach((to, from, next) => {
   } else if (requiresAuth && !isAuthenticated) {
     next('/')
   } else if (requiredRole && requiredRole.length > 0 && (!isAuthenticated || !requiredRole.includes(userRole))) {
-    next('notfound')
+    next('/notfound')
   } else {
     next()
   }
