@@ -19,15 +19,15 @@
                                 </label>
                                 <input v-model="username"
                                     class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    type="text" placeholder="Username" required />
+                                    type="text" placeholder="--" required />
                             </div>
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
                                     Contraseña
                                 </label>
                                 <input v-model="password"
-                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    type="password" placeholder="******************" required />
+                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    type="password" placeholder="--" required />
                                 <!-- <p class="text-xs italic text-red-500">Please choose a password.</p> -->
                             </div>
                             <div class="mb-6 text-center">
@@ -64,39 +64,44 @@
 
 <script>
 import swal from 'sweetalert'
+import axios from 'axios'
 export default {
     data() {
         return {
             username: '',
             password: '',
-            // admins: {}
+            users: {}
         }
     },
     mounted() {
-        // const api = import.meta.env.VITE_URL_BASE;
+        const api = import.meta.env.VITE_BASE_URL
+        const url = api + 'jMpHsrSf/persons'
 
-        // const urlAdmin = api + 'admin/selectAll/'
-        // fetch(urlAdmin, {
-        //     method: 'GET',
-        //     headers: {
-        //         "Content-type": "application/json"
-        //     },
-        // })
-        //     .then(response => response.json())
-        //     .then(data => this.admins = data.data)
+        axios.get(url).then((response) => {
+            this.users = response.data
+        })
     },
     methods: {
         login() {
-            // let username = this.admins.findIndex(e => e.username == this.username)
-            // let password = this.admins.findIndex(e => e.password == this.password)
-            if (this.username == 'calle' && this.password == '1234') {
-                localStorage.setItem('user', JSON.stringify({ username: this.username, password: this.password, rol: 1, person: 10 }))
-                swal("Enhorabuena!", "Inicio exitoso", "success")
+            const usernameIndex = this.users.findIndex((e) => e.usuario === this.username);
+            const passwordIndex = this.users.findIndex((e) => e.contrasena === this.password);
+
+            if (usernameIndex !== -1 && passwordIndex !== -1) {
+                const user = {
+                    username: this.username,
+                    password: this.password,
+                    rol: this.users[usernameIndex].id_rol,
+                    person: this.users[usernameIndex].id
+                };
+
+                localStorage.setItem('user', JSON.stringify(user));
+
+                swal("¡Enhorabuena!", "Inicio de sesión exitoso", "success")
                     .then(() => {
-                        this.$router.push('/dashboard')
+                        this.$router.push('/dashboard');
                     });
             } else {
-                swal("Error!", "Usuario o contraseña incorrectos", "error");
+                swal("¡Error!", "Usuario o contraseña incorrectos", "error");
             }
         },
     }

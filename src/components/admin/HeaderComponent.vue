@@ -45,7 +45,8 @@ onMounted(() => {
                 class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                 id="dropdown-user">
                 <div class="px-4 py-3" role="none">
-                  <p class="text-sm text-gray-900 dark:text-white" role="none">{{ person.primer_nombre }} {{ person.primer_apellido }}</p>
+                  <p class="text-sm text-gray-900 dark:text-white" role="none">{{ person.primer_nombre }} {{
+                    person.primer_apellido }}</p>
                   <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                     {{ person.correo }}
                   </p>
@@ -62,8 +63,7 @@ onMounted(() => {
                       role="menuitem">Perfil</a>
                   </li>
                   <li>
-                    <a
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    <a class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                       role="menuitem" @click="logout">Cerrar Sesión</a>
                   </li>
                 </ul>
@@ -125,7 +125,7 @@ onMounted(() => {
           </li>
           <li>
             <a @click="logout"
-              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+              class="flex cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
               <svg aria-hidden="true"
                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -159,6 +159,8 @@ onMounted(() => {
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert'
+
 export default {
   data() {
     return {
@@ -181,7 +183,10 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem('user')
-      this.$router.push('/')
+      swal("Enhorabuena!", "Sesión cerrada con exito!", "success")
+        .then(() => {
+          this.$router.push('/')
+        });   
     }
   }
 }
