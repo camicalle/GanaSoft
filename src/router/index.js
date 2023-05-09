@@ -63,6 +63,14 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
       }
+    },
+    {
+      path: '/pesos',
+      name: 'pesos',
+      component: () => import('../views/admin/pesos/PesosView.vue'),
+      meta: {
+        requiresAuth: true,
+      }
     }
   ]
 })
