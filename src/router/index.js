@@ -53,7 +53,8 @@ const router = createRouter({
       name: 'animals',
       component: () => import('../views/admin/animals/AnimalsView.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresRole: [1]
       }
     },
     {
@@ -69,9 +70,15 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const isAuthenticated = localStorage.getItem('user')
-  if (requiresAuth && !isAuthenticated) {
+  const requiredRole = to.meta.requiredRole;
+  const isAuthenticated = localStorage.getItem('user');
+  const userRole = isAuthenticated ? parseInt(JSON.parse(isAuthenticated).rol) : null;
+  if (!requiresAuth && isAuthenticated && to.name === 'login') {
+    next('/dashboard');
+  } else if (requiresAuth && !isAuthenticated) {
     next('/')
+  } else if (requiredRole && requiredRole.length > 0 && (!isAuthenticated || !requiredRole.includes(userRole))) {
+    next('notfound')
   } else {
     next()
   }
