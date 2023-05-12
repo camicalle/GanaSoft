@@ -1,3 +1,6 @@
+# Link en produccion con vercel
+[Entra para ver el sitio](https://ganasoft.vercel.app/)
+
 # ganasoft
 
 This template should help get you started developing with Vue 3 in Vite.
